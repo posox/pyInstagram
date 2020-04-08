@@ -24,7 +24,7 @@ class ElementConstructor(type):
         return cls.cache[str(key)]
 
 
-# Common abstract classes 
+# Common abstract classes
 class Element(metaclass=ElementConstructor):
     def primary_key(self):
         raise NotImplementedError
@@ -33,7 +33,7 @@ class Element(metaclass=ElementConstructor):
 class UpdatableElement(Element):
     def set_data(self):
         raise NotImplementedError
-    
+
     def entry_data_path(self):
         raise NotImplementedError
 
@@ -44,7 +44,7 @@ class UpdatableElement(Element):
 class HasMediaElement(UpdatableElement):
     def media_path(self):
         raise NotImplementedError
-    
+
     def media_query_hash(self):
         raise NotImplementedError
 
@@ -158,7 +158,7 @@ class Media(UpdatableElement):
                     child.display_url = edge["node"]["display_url"]
                     if "display_resources" in edge["node"]:
                         child.resources = [resource["src"] for resource in edge["node"]["display_resources"]]
-                    else:
+                    elif "thumbnail_resources" in edge["node"]:
                         child.resources = [resource["src"] for resource in edge["node"]["thumbnail_resources"]]
                     child.is_album = False
                     self.album.add(child)
